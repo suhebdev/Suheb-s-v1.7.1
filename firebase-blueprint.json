@@ -1,0 +1,83 @@
+{
+  "entities": {
+    "users": {
+      "title": "User Profile",
+      "description": "User account registration details used for SSO configuration sync and Google Drive media root folder metadata",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "The unique user ID matching the authenticated user" },
+        "displayName": { "type": "string", "description": "The user's full name" },
+        "email": { "type": "string", "description": "The user's email address" },
+        "picture": { "type": "string", "description": "URL to the user's avatar image" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" },
+        "driveRootFolderId": { "type": "string", "description": "The unique ID of the root Google Drive folder 'WhatsAppToolMedia'" },
+        "driveConnectedAt": { "type": "string", "format": "date-time", "description": "Timestamp when Google Drive was first authenticated and linked" },
+        "driveTokens": { "type": "string", "description": "Encrypted Google OAuth drive credentials (Backend Only)" }
+      },
+      "required": ["userId", "displayName", "email"]
+    },
+    "tools_chats": {
+      "title": "WhatsApp Chat Metadata",
+      "description": "Metadata for an imported WhatsApp chat conversation",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier of the chat" },
+        "name": { "type": "string", "description": "Custom display name assigned by user" },
+        "fileName": { "type": "string", "description": "The original name of the uploaded WhatsApp ZIP file" },
+        "myIdentity": { "type": "string", "description": "The user's own identity name in the chat" },
+        "otherIdentity": { "type": "string", "description": "The other participant's identity name in the chat" },
+        "driveFolderId": { "type": "string", "description": "Google Drive folder ID created for this chat's media ({chatName}_{chatId})" },
+        "totalMessageCount": { "type": "integer", "description": "Total parsed message count across all batches" },
+        "storageVersion": { "type": "integer", "description": "Storage architecture version (3 for V3)" },
+        "isImported": { "type": "boolean", "description": "True when the chat import and Drive upload have completed successfully" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Timestamp when the chat was imported" }
+      },
+      "required": ["id", "name", "fileName", "myIdentity", "otherIdentity", "driveFolderId", "totalMessageCount", "storageVersion", "isImported", "createdAt"]
+    },
+    "service_inquiries": {
+      "title": "Service Inquiry",
+      "description": "Submitted interactive consultation specification",
+      "type": "object",
+      "properties": {
+        "inquirerName": { "type": "string", "description": "Name of the inquirer" },
+        "phone": { "type": "string", "description": "10-digit phone number" },
+        "email": { "type": "string", "description": "Inquirer email address" },
+        "mode": { "type": "string", "description": "The selected CTA mode" },
+        "selectedAction": { "type": "string", "description": "Description of action/service lookup" },
+        "timestamp": { "type": "string", "format": "date-time", "description": "Submission time" }
+      },
+      "required": ["inquirerName", "phone", "mode", "selectedAction", "timestamp"]
+    },
+    "bottleneck_proposals": {
+      "title": "Bottleneck Proposal",
+      "description": "Submitted project bottleneck diagnostic parameters",
+      "type": "object",
+      "properties": {
+        "businessName": { "type": "string", "description": "Name of business or project" },
+        "bottleneckType": { "type": "string", "description": "The type of Dev headache bottleneck" },
+        "email": { "type": "string", "description": "E-mail address" },
+        "details": { "type": "string", "description": "Description of problem" },
+        "timestamp": { "type": "string", "format": "date-time", "description": "Submission time" }
+      },
+      "required": ["businessName", "bottleneckType", "email", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "users",
+      "description": "Active user SSO details map and Google Drive metadata"
+    },
+    "/users/{userId}/tools_chats/{chatId}": {
+      "schema": "tools_chats",
+      "description": "Imported WhatsApp chat metadata"
+    },
+    "/service_inquiries/{inquiryId}": {
+      "schema": "service_inquiries",
+      "description": "Interactive Service Inquiries and consultations"
+    },
+    "/bottleneck_proposals/{proposalId}": {
+      "schema": "bottleneck_proposals",
+      "description": "Project bottleneck diagnostic proposals"
+    }
+  }
+}

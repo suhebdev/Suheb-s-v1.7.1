@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+}
+
+body {
+  background-color: #fcfcfc;
+  color: #0d0d0d;
+}
+
+@keyframes spin-clockwise {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-counter-clockwise {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes dashoffset-flow-1 {
+  from {
+    stroke-dashoffset: -200;
+  }
+  to {
+    stroke-dashoffset: 200;
+  }
+}
+
+@keyframes dashoffset-flow-2 {
+  from {
+    stroke-dashoffset: 200;
+  }
+  to {
+    stroke-dashoffset: -200;
+  }
+}
+
+@keyframes dashoffset-flow-3 {
+  from {
+    stroke-dashoffset: -250;
+  }
+  to {
+    stroke-dashoffset: 250;
+  }
+}
+
+/* GPU-accelerated spin utilities */
+.animate-spin-slow-cw {
+  animation: spin-clockwise 40s linear infinite;
+  will-change: transform;
+}
+
+.animate-spin-slow-ccw {
+  animation: spin-counter-clockwise 60s linear infinite;
+  will-change: transform;
+}
+
+.animate-spin-circuit-cw {
+  animation: spin-clockwise 60s linear infinite;
+  will-change: transform;
+}
+
+.animate-spin-circuit-ccw {
+  animation: spin-counter-clockwise 80s linear infinite;
+  will-change: transform;
+}
+
+/* GPU-accelerated SVG dash flows */
+.circuit-path-flow-1 {
+  animation: dashoffset-flow-1 6s linear infinite;
+  will-change: stroke-dashoffset;
+}
+
+.circuit-path-flow-2 {
+  animation: dashoffset-flow-2 8s linear infinite;
+  will-change: stroke-dashoffset;
+}
+
+.circuit-path-flow-3 {
+  animation: dashoffset-flow-3 7s linear infinite;
+  will-change: stroke-dashoffset;
+}
+
+/* Custom styles for grid background and custom tech lines */
+.tech-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+}
+
+.tech-grid-dots {
+  background-size: 20px 20px;
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+}
+
+/* Hide scrollbars globally across all browsers to maintain the requested clean layout */
+*:not(.custom-scrollbar):not(.custom-scrollbar *):not(.chat-scrollbar):not(.chat-scrollbar *)::-webkit-scrollbar {
+  display: none !important;
+}
+
+*:not(.custom-scrollbar):not(.chat-scrollbar) {
+  -ms-overflow-style: none !important; /* IE and Edge */
+  scrollbar-width: none !important; /* Firefox */
+}
+
+/* Custom webkit scrollbar for scrollable specs containers */
+.custom-scrollbar::-webkit-scrollbar {
+  display: block !important;
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.02) !important;
+}
+
+/* Sleek 3-4px custom webkit scrollbar for chat view */
+.chat-scrollbar::-webkit-scrollbar {
+  display: block !important;
+  width: 4px;
+  height: 4px;
+}
+
+.chat-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.18);
+  border-radius: 9999px;
+}
+
+.chat-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.36);
+}
+
+.chat-scrollbar {
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(0, 0, 0, 0.18) transparent !important;
+}
+
